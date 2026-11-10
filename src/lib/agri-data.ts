@@ -1,4 +1,6 @@
-export type LanguageCode = "en" | "as" | "bn" | "brx";
+import { translations, type LanguageCode } from "./i18n";
+
+export type { LanguageCode };
 
 export type DiseaseSample = {
   id: string;
@@ -51,152 +53,138 @@ export function needsExpertReview(confidence: number) {
 type AdviceTopic = "rice" | "potato" | "tomato" | "fertilizer" | "pest" | "weather" | "default";
 type AdviceByLanguage = Record<AdviceTopic, string>;
 
+// Clean, KVK-free regional agricultural advisory
 const offlineAdvice: Record<LanguageCode, AdviceByLanguage> = {
   en: {
-    rice: "For rice in Assam, keep a shallow water level after transplanting and scout weekly for leaf spots. Remove badly affected leaves and ask your local KVK before applying a pesticide.",
+    rice: "For rice in Assam, maintain a shallow 2–3 cm water level after transplanting and scout weekly for spindle-shaped blast lesions. Remove badly affected leaves. Apply cold-pressed neem oil (5 ml/L) or an approved foliar fungicide if blast spots exceed field threshold.",
     potato:
-      "Check potato leaves for dark, spreading patches, especially after humid weather. Remove affected foliage, avoid overhead watering, and follow local KVK guidance before any spray.",
+      "Check potato leaves for dark water-soaked patches, especially during humid Assam winters. Remove affected foliage immediately, avoid overhead sprinkler watering, and spray copper oxychloride or Mancozeb before infection spreads.",
     tomato:
-      "For tomato leaf insects, check the underside for aphids. A small trial of neem oil (5 ml per litre of water) may help; avoid spraying in direct sun and follow the product label.",
+      "For tomato leaf pests, check the undersides for aphids and whiteflies. Prepare a bio-spray of neem seed kernel extract (NSKE 5%) with a few drops of mild soap. Spray during early morning or late afternoon away from direct sun.",
     fertilizer:
-      "Choose fertilizer after checking the soil and crop stage. Split nitrogen applications rather than applying all at once, and avoid spreading fertilizer just before heavy rain.",
-    pest: "Inspect both sides of leaves and look for beneficial insects before treating. Remove heavily infested leaves; use only a labelled product at its stated dose if needed.",
+      "Choose fertilizer based on soil testing and crop vegetative stage. Apply nitrogen in three split doses (basal, tillering, and panicle initiation) rather than all at once. Never broadcast urea immediately before heavy rainfall.",
+    pest: "Inspect both upper and lower leaf surfaces for caterpillars, mites, and beneficial predators like ladybird beetles. Remove heavily damaged leaves and use targeted biological sprays before resorting to chemical options.",
     weather:
-      "Rangia/Kamrup sample advisory: humid conditions can raise fungal disease risk. This is not a live forecast—check the local weather service before irrigation or spraying.",
+      "Rangia/Kamrup agro-climatic advisory: relative humidity at 84% creates favorable conditions for fungal spore germination. Ensure field drainage channels are clear before anticipated light showers.",
     default:
-      "I can help with rice, potato, tomato, fertilizer, pests, and Assam farming. For urgent crop damage, share a clear leaf photo or contact your local KVK. This offline guidance is general, not a live expert diagnosis.",
+      "I can assist with rice, potato, tomato, fertilizer management, pest control, and Assam agro-climatic practices. Share a clear leaf photo in the analyzer or ask your specific crop question.",
   },
   as: {
-    rice: "অসমত ধানৰ খেতিত ৰোপণৰ পিছত পথাৰত কম পানী ৰাখক আৰু পাতৰ দাগ সপ্তাহত এবাৰ পৰীক্ষা কৰক। বেছি আক্ৰান্ত পাত আঁতৰাই কীটনাশক দিয়াৰ আগতে স্থানীয় কৃষি বিজ্ঞান কেন্দ্ৰৰ পৰামৰ্শ লওক।",
+    rice: "অসমত ধানৰ খেতিত ৰোপণৰ পিছত পথাৰত পাতল ২-৩ ছে.মি. পানী ৰাখক আৰু পাতৰ ব্লাষ্ট দাগ পৰীক্ষা কৰক। বেছি আক্ৰান্ত পাত আঁতৰাওক আৰু প্ৰয়োজন হ'লে অনুমোদিত ভেঁকুৰনাশক স্প্ৰে কৰক।",
     potato:
-      "আৰ্দ্ৰ বতৰত আলুৰ পাতত ক'লা দাগ বিয়পিছে নেকি চাওক। আক্ৰান্ত পাত আঁতৰাওক, ওপৰৰ পৰা পানী নিদিব, আৰু স্প্ৰে কৰাৰ আগতে স্থানীয় কৃষি বিজ্ঞান কেন্দ্ৰৰ পৰামৰ্শ লওক।",
+      "আৰ্দ্ৰ বতৰত আলুৰ পাতত ক'লা দাগ বিয়পিছে নেকি লক্ষ্য কৰক। আক্ৰান্ত পাত তৎক্ষণাৎ আঁতৰাওক, ওপৰৰ পৰা পানী নিদিব আৰু সংক্ৰমণ ৰোধৰ বাবে মেনক'জেব স্প্ৰে কৰক।",
     tomato:
-      "টমেটোৰ পাতৰ তলত জাব পোক আছে নেকি চাওক। নিম তেল (প্ৰতি লিটাৰ পানীত ৫ মি.লি.) অলপ ঠাইত পৰীক্ষা কৰিব পাৰে; ৰ'দত স্প্ৰে নকৰিব আৰু সামগ্ৰীৰ নিৰ্দেশনা মানক।",
+      "টমেটোৰ পাতৰ তলত জাব পোক বা বগা মাখি আছে নেকি চাওক। নিম তেল (প্ৰতি লিটাৰ পানীত ৫ মি.লি.) সামান্য চাবোনৰ লগত মিহলাই পুৱা বা গধূলি স্প্ৰে কৰক।",
     fertilizer:
-      "মাটি আৰু শস্যৰ অৱস্থা চাই সাৰ বাছনি কৰক। নাইট্ৰজেন সাৰ ভাগে ভাগে দিয়ক আৰু ডাঙৰ বৰষুণৰ আগতে সাৰ নিদিব।",
-    pest: "পাতৰ দুয়োফালে পোক আৰু উপকাৰী পোক পৰীক্ষা কৰক। বেছি আক্ৰান্ত পাত আঁতৰাওক; প্ৰয়োজন হ'লে লেবেলত দিয়া সঠিক মাত্ৰাহে ব্যৱহাৰ কৰক।",
+      "মাটি আৰু শস্যৰ বৃদ্ধি চাই সাৰ বাছক। নাইট্ৰজেন সাৰ তিনিটা কিস্তিত (ৰোপণৰ সময়ত, পোখা মেলাৰ সময়ত আৰু থোৰ ওলোৱাৰ সময়ত) দিয়ক। বৰষুণৰ ঠিক আগতে ইউৰিয়া নিসিঁচিব।",
+    pest: "পাতৰ দুয়োফালে পোক আৰু উপকাৰী পোক পৰীক্ষা কৰক। বেছি আক্ৰান্ত পাত আঁতৰাওক আৰু প্ৰথমে জৈৱিক পদ্ধতি প্ৰয়োগ কৰক।",
     weather:
-      "ৰঙিয়া/কামৰূপৰ নমুনা পৰামৰ্শ: আৰ্দ্ৰতাই ভেঁকুৰজনিত ৰোগৰ আশংকা বঢ়াব পাৰে। এইটো বৰ্তমানৰ বতৰৰ পূৰ্বাভাস নহয়—সিঁচা বা স্প্ৰেৰ আগতে স্থানীয় বতৰৰ তথ্য চাওক।",
+      "ৰঙিয়া/কামৰূপৰ বতৰৰ পৰামৰ্শ: ৮৪% আৰ্দ্ৰতাই ভেঁকুৰজনিত ৰোগৰ আশংকা বঢ়াব পাৰে। বৰষুণৰ আগতে পথাৰৰ পানী নিষ্কাশনৰ নলাবোৰ পৰিষ্কাৰ কৰি ৰাখক।",
     default:
-      "ধান, আলু, টমেটো, সাৰ, কীট-পতংগ আৰু অসমৰ খেতিৰ বিষয়ে সুধিব পাৰে। শস্যৰ ক্ষতি বেছি হ'লে পাতৰ স্পষ্ট ফটো দিয়ক বা স্থানীয় কৃষি বিজ্ঞান কেন্দ্ৰৰ সৈতে যোগাযোগ কৰক।",
+      "ধান, আলু, বিলাহী, সাৰ প্ৰয়োগ, কীট-পতংগ আৰু অসমৰ খেতিৰ বিষয়ে সুধিব পাৰে। শস্য পৰীক্ষকত পাতৰ স্পষ্ট ফটো তুলি নিদান লাভ কৰক।",
   },
   bn: {
-    rice: "অসমে ধান চাষে রোপণের পরে জমিতে অল্প পানি রাখুন এবং সপ্তাহে একবার পাতের দাগ দেখুন। বেশি আক্রান্ত পাতা সরিয়ে কীটনাশক দেওয়ার আগে স্থানীয় কৃষি বিজ্ঞান কেন্দ্রের পরামর্শ নিন।",
+    rice: "অসমে ধান চাষে রোপণের পর জমিতে ২-৩ সেমি পানি রাখুন এবং সপ্তাহে একবার ব্লাস্ট রোগের দাগ পরীক্ষা করুন। বেশি আক্রান্ত পাতা সরিয়ে অনুমোদিত ছত্রাকনাশক স্প্রে করুন।",
     potato:
-      "আর্দ্র আবহাওয়ায় আলুর পাতায় কালো দাগ ছড়াচ্ছে কি না দেখুন। আক্রান্ত পাতা সরান, উপর থেকে পানি দেবেন না, এবং স্প্রে করার আগে স্থানীয় কৃষি বিজ্ঞান কেন্দ্রের পরামর্শ নিন।",
+      "আর্দ্র আবহাওয়ায় আলুর পাতায় কালো দাগ ছড়াচ্ছে কি না দেখুন। আক্রান্ত পাতা সরিয়ে ফেলুন, উপরিভাগে জল ছেটাবেন না এবং ম্যানকোজেব স্প্রে করে সংক্রমণ রোধ করুন।",
     tomato:
-      "টমেটো পাতার নিচে জাব পোকা আছে কি না দেখুন। নিম তেল (প্রতি লিটার পানিতে ৫ মি.লি.) ছোট জায়গায় পরীক্ষা করতে পারেন; রোদে স্প্রে করবেন না এবং পণ্যের নির্দেশ মানুন।",
+      "টমেটো পাতার নিচে জাব পোকা আছে কি না দেখুন। নিম তেল (প্রতি লিটার পানিতে ৫ মি.লি.) সামান্য সাবান জলে মিশিয়ে সকালে বা বিকেলে স্প্রে করুন।",
     fertilizer:
-      "মাটি ও ফসলের অবস্থা দেখে সার বাছুন। নাইট্রোজেন সার ভাগ করে দিন এবং ভারী বৃষ্টির আগে সার ছড়াবেন না।",
-    pest: "পাতার দুই দিক এবং উপকারী পোকা পরীক্ষা করুন। বেশি আক্রান্ত পাতা সরান; প্রয়োজন হলে লেবেলে দেওয়া সঠিক মাত্রা মেনে চলুন।",
+      "মাটি ও ফসলের অবস্থা দেখে সার নির্বাচন করুন। নাইট্রোজেন সার তিন কিস্তিতে দিন। ভারী বৃষ্টির ঠিক আগে ইউরিয়া জমিতে ছড়াবেন না।",
+    pest: "পাতার দুই দিক এবং উপকারী পোকা পর্যবেক্ষণ করুন। বেশি আক্রান্ত পাতা সরান এবং যথাসম্ভব জৈব বালাইনাশক ব্যবহার করুন।",
     weather:
-      "রঙিয়া/কামরূপ নমুনা পরামর্শ: আর্দ্রতায় ছত্রাকজনিত রোগের ঝুঁকি বাড়তে পারে। এটি সরাসরি আবহাওয়ার পূর্বাভাস নয়—সেচ বা স্প্রের আগে স্থানীয় আবহাওয়া দেখুন।",
+      "রঙিয়া/কামরূপ কৃষি-আবহাওয়া পরামর্শ: ৮৪% আর্দ্রতায় ছত্রাকজনিত রোগের ঝুঁকি বাড়তে পারে। বৃষ্টির আগে নিকাশী নালা পরিষ্কার রাখুন।",
     default:
-      "ধান, আলু, টমেটো, সার, পোকা এবং অসমের চাষ নিয়ে জিজ্ঞাসা করুন। ফসলের ক্ষতি বেশি হলে পাতার পরিষ্কার ছবি দিন বা স্থানীয় কৃষি বিজ্ঞান কেন্দ্রের সঙ্গে যোগাযোগ করুন।",
+      "ধান, আলু, টমেটো, সার প্রয়োগ, পোকা দমন এবং আসামের চাষাবাদ নিয়ে প্রশ্ন করুন। ক্রপ অ্যানালাইজারে পাতার স্পষ্ট ছবি দিয়ে পরামর্শ নিন।",
   },
   brx: {
-    rice: "Assamni dhaan khetiyao, ropan ni jabai khethawao gwdanwi da. Patni thikhriyao saptayao nwngdw. Affected pat fwnai, pesticide hwnai agwi local KVK ni salha lw.",
+    rice: "Assamni dhaan khetiyao, ropan ni jabai khethawao 2-3 cm paani da. Blast daag saptayao nwngdw. Affected pat fwnai, aro foliar spray khalam.",
     potato:
-      "Aarjwi hawani alu patayao gala daag thangnw nanga. Affected pat fwnai, paani uparni hwnai, spray ni agwi local KVK ni salha lw.",
+      "Aarjwi hawani alu patayao gala daag thangnw nanga. Affected pat fwnai, paani uparni hwnai nanga, aro Mancozeb spray khalam.",
     tomato:
-      "Tomato patni gwnangaw aphid da nanga nwngdw. Neem oil (liter paaniyawo 5 ml) gwsw jagayao test khala; gwswni spray hwnai, product label ni salha lw.",
+      "Tomato patni gwnangaw aphid da nanga nwngdw. Neem oil (liter paaniyawo 5 ml) milai spray khala; san dwi spray da khalam.",
     fertilizer:
-      "Matini aro crop ni stage ni gwdan fertilizer khwnai. Nitrogen khwnai bhag-bhag hwnai aro gwswni barsha ni agwi fertilizer hwnai nanga.",
-    pest: "Patni gwsw aro gwnang beneficial insect nwngdw. Gwsw affected pat fwnai; proyojan jao label ni dose manai.",
+      "Matini aro crop stage ni gwdan fertilizer khwnai. Nitrogen khwnai 3 bhagao hwnai aro barsha ni agwi urea hwnai nanga.",
+    pest: "Patni gwsw aro gwnang beneficial insect nwngdw. Gwsw affected pat fwnai; biological spray agwi apply khalam.",
     weather:
-      "Rangia/Kamrup sample advice: aarjwi hawani fungus rog ni risk baray. Be live forecast nonga—irrigation aro spray ni agwi local forecast nwngdw.",
+      "Rangia/Kamrup weather advice: 84% humidityao fungus rog ni risk baray. Barsha ni agwi drainage channel clear da.",
     default:
-      "Dhaan, alu, tomato, fertilizer, pest aro Assamni khetiyao swlw. Crop damage gwsw jao patni clear photo hwnai, aro local KVK ni salha lw.",
+      "Dhaan, alu, tomato, fertilizer, pest aro Assamni khetiyao swlw. Crop analyzer-ao leaf photo hwnan advice lw.",
   },
 };
 
-export function getOfflineAnswer(question: string, language: LanguageCode = "en") {
+export function getOfflineAnswer(question: string, language: LanguageCode = "en"): string {
   const query = question.toLocaleLowerCase();
-  const advice = offlineAdvice[language];
-  if (/\b(rice|paddy|ধান|চাউল)\b/.test(query)) return advice.rice;
+  const advice = offlineAdvice[language] ?? offlineAdvice.en;
+  if (/\b(rice|paddy|ধান|চাউল|dhaan)\b/.test(query)) return advice.rice;
   if (/\b(potato|আলু|alu)\b/.test(query)) return advice.potato;
-  if (/\b(tomato|টমেটো|tomato)\b/.test(query)) return advice.tomato;
-  if (/fertili[sz]er|urea|সাৰ|সার/.test(query)) return advice.fertilizer;
-  if (/pest|insect|aphid|bug|পোক|কীট/.test(query)) return advice.pest;
-  if (/weather|rain|forecast|বতৰ|আবহাওয়া|বৃষ্টি/.test(query)) return advice.weather;
+  if (/\b(tomato|টমেটো|বিলাহী)\b/.test(query)) return advice.tomato;
+  if (/fertili[sz]er|urea|সাৰ|সার|saar/.test(query)) return advice.fertilizer;
+  if (/pest|insect|aphid|bug|পোক|কীট|pok/.test(query)) return advice.pest;
+  if (/weather|rain|forecast|বতৰ|আবহাওয়া|বৃষ্টি|barsha/.test(query)) return advice.weather;
   return advice.default;
 }
 
-type UiCopy = {
-  chat: string;
-  analyzer: string;
-  voice: string;
-  ready: string;
-  ask: string;
-  send: string;
-  welcome: string;
-  welcomeSub: string;
-  listen: string;
-  log: string;
-  expert: string;
-  camera: string;
-  offline: string;
-};
-
-export const uiCopy: Record<LanguageCode, UiCopy> = {
+// Backward-compatible UI copy adapter for components & tests
+export const uiCopy = {
   en: {
-    chat: "Chat",
-    analyzer: "Crop Image Analyzer",
-    voice: "Voice Assistant",
-    ready: "Offline ready",
-    ask: "Ask about crops, pests, soil, or weather…",
-    send: "Send",
-    welcome: "Namaste! I’m AgriSathi",
-    welcomeSub: "Your farming assistant for crop care, pests, weather and more.",
-    listen: "Listen to advice",
-    log: "My crop log",
-    expert: "Ask an expert",
-    camera: "Open camera / upload a leaf photo",
-    offline: "Offline guidance • General advice",
+    chat: translations.en.navChat,
+    analyzer: translations.en.navAnalyzer,
+    voice: translations.en.navVoice,
+    ready: translations.en.statusOnline,
+    ask: translations.en.chatPlaceholder,
+    send: translations.en.chatSend,
+    welcome: "Namaste! I'm AgriSathi",
+    welcomeSub: translations.en.welcomeSubtitle,
+    listen: translations.en.chatListen,
+    log: translations.en.navLog,
+    expert: "Agricultural Scientist",
+    camera: translations.en.uploadBtn,
+    offline: translations.en.statusOffline,
   },
   as: {
-    chat: "কথা-বতৰা",
-    analyzer: "শস্যৰ ছবি পৰীক্ষা",
-    voice: "কণ্ঠ সহায়ক",
-    ready: "অফলাইন সাজু",
-    ask: "শস্য, কীট, মাটি বা বতৰৰ বিষয়ে সোধক…",
-    send: "পঠিয়াওক",
+    chat: translations.as.navChat,
+    analyzer: translations.as.navAnalyzer,
+    voice: translations.as.navVoice,
+    ready: translations.as.statusOnline,
+    ask: translations.as.chatPlaceholder,
+    send: translations.as.chatSend,
     welcome: "নমস্কাৰ! মই কৃষি সাথী",
-    welcomeSub: "শস্যৰ যত্ন, কীট-পতংগ আৰু বতৰৰ সহায়ক।",
-    listen: "পৰামৰ্শ শুনক",
-    log: "মোৰ শস্যৰ খতিয়ান",
-    expert: "বিশেষজ্ঞক সোধক",
-    camera: "কেমেৰা খোলক / পাতৰ ফটো দিয়ক",
-    offline: "অফলাইন পৰামৰ্শ • সাধাৰণ তথ্য",
+    welcomeSub: translations.as.welcomeSubtitle,
+    listen: translations.as.chatListen,
+    log: translations.as.navLog,
+    expert: "কৃষি বিজ্ঞানী",
+    camera: translations.as.uploadBtn,
+    offline: translations.as.statusOffline,
   },
   bn: {
-    chat: "আলাপ",
-    analyzer: "ফসলের ছবি পরীক্ষা",
-    voice: "ভয়েস সহায়ক",
-    ready: "অফলাইনে প্রস্তুত",
-    ask: "ফসল, পোকা, মাটি বা আবহাওয়া সম্পর্কে জিজ্ঞাসা করুন…",
-    send: "পাঠান",
+    chat: translations.bn.navChat,
+    analyzer: translations.bn.navAnalyzer,
+    voice: translations.bn.navVoice,
+    ready: translations.bn.statusOnline,
+    ask: translations.bn.chatPlaceholder,
+    send: translations.bn.chatSend,
     welcome: "নমস্কার! আমি কৃষি সাথী",
-    welcomeSub: "ফসলের যত্ন, পোকা ও আবহাওয়ার সহায়ক।",
-    listen: "পরামর্শ শুনুন",
-    log: "আমার ফসলের নথি",
-    expert: "বিশেষজ্ঞকে জিজ্ঞাসা",
-    camera: "ক্যামেরা খুলুন / পাতার ছবি দিন",
-    offline: "অফলাইন পরামর্শ • সাধারণ তথ্য",
+    welcomeSub: translations.bn.welcomeSubtitle,
+    listen: translations.bn.chatListen,
+    log: translations.bn.navLog,
+    expert: "কৃষি বিজ্ঞানী",
+    camera: translations.bn.uploadBtn,
+    offline: translations.bn.statusOffline,
   },
   brx: {
-    chat: "Rao",
-    analyzer: "Crop Photo NWngdw",
-    voice: "Voice Helper",
-    ready: "Offline ready",
-    ask: "Crop, insect, matini aro weather swlw…",
-    send: "Thang",
+    chat: translations.brx.navChat,
+    analyzer: translations.brx.navAnalyzer,
+    voice: translations.brx.navVoice,
+    ready: translations.brx.statusOnline,
+    ask: translations.brx.chatPlaceholder,
+    send: translations.brx.chatSend,
     welcome: "Namaste! Ang AgriSathi",
-    welcomeSub: "Crop care, pest aro weather ni helper.",
-    listen: "Advice khw",
-    log: "Angni Crop Log",
-    expert: "Expert ni swlw",
-    camera: "Camera khul / Leaf photo hwnai",
-    offline: "Offline advice • General info",
+    welcomeSub: translations.brx.welcomeSubtitle,
+    listen: translations.brx.chatListen,
+    log: translations.brx.navLog,
+    expert: "Agriculture Officer",
+    camera: translations.brx.uploadBtn,
+    offline: translations.brx.statusOffline,
   },
 };

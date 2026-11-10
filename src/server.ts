@@ -2,6 +2,8 @@ import "./lib/error-capture";
 
 import { consumeLastCapturedError } from "./lib/error-capture";
 import { renderErrorPage } from "./lib/error-page";
+import { askGeminiAdvisor } from "./server/gemini";
+import type { LanguageCode } from "./lib/agri-data";
 
 type ServerEntry = {
   fetch: (request: Request, env: unknown, ctx: unknown) => Promise<Response> | Response;
@@ -46,6 +48,38 @@ function isH3SwallowedErrorBody(body: string): boolean {
 
 export default {
   async fetch(request: Request, env: unknown, ctx: unknown) {
+    const url = new URL(request.url);
+
+    // Server-side API endpoint for Gemini-powered agricultural Q&A
+    if (request.method === "POST" && url.pathname === "/api/chat") {
+      try {
+        const body = (await request.json()) as { question?: string; language?: LanguageCode };
+        const question = body.question ?? "";
+        const language = body.language ?? "en";
+        const result = await askGeminiAdvisor(question, language);
+
+        return new Response(JSON.stringify(result), {
+          status: 200,
+          headers: {
+            "Content-Type": "application/json",
+            "Cache-Control": "no-store",
+          },
+        });
+      } catch (err) {
+        console.warn("Notice in /api/chat handler:", err);
+        return new Response(
+          JSON.stringify({
+            answer: "An error occurred while processing your request. Please try again.",
+            source: "offline-dataset",
+          }),
+          {
+            status: 200,
+            headers: { "Content-Type": "application/json" },
+          },
+        );
+      }
+    }
+
     try {
       const handler = await getServerEntry();
       const response = await handler.fetch(request, env, ctx);

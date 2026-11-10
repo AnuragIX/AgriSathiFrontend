@@ -1,0 +1,138 @@
+{
+  "entities": {
+    "UserProfile": {
+      "title": "UserProfile",
+      "description": "User profile information and regional preferences for AgriSathi farmers.",
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "string",
+          "description": "Unique Firebase Authentication UID of the user."
+        },
+        "displayName": {
+          "type": "string",
+          "description": "Display name of the farmer."
+        },
+        "preferredLanguage": {
+          "type": "string",
+          "enum": ["en", "as", "bn", "brx"],
+          "description": "Preferred UI and advisor language."
+        },
+        "location": {
+          "type": "string",
+          "description": "District or region in Assam (e.g. Rangia, Kamrup)."
+        },
+        "createdAt": {
+          "type": "string",
+          "description": "ISO timestamp when the user profile was created."
+        }
+      },
+      "required": ["userId", "preferredLanguage", "createdAt"]
+    },
+    "CropLogEntry": {
+      "title": "CropLogEntry",
+      "description": "Saved leaf disease diagnosis record tracked by the farmer in their field diary.",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for this diagnosis log record."
+        },
+        "userId": {
+          "type": "string",
+          "description": "UID of the farmer who logged the diagnosis."
+        },
+        "crop": {
+          "type": "string",
+          "description": "Name of the crop (e.g. Rice, Potato, Tomato, Paddy)."
+        },
+        "disease": {
+          "type": "string",
+          "description": "Diagnosed disease or condition (e.g. Leaf blast, Late blight)."
+        },
+        "pathogen": {
+          "type": "string",
+          "description": "Pathogen classification group (e.g. Fungus, Bacteria, Algae, None)."
+        },
+        "confidence": {
+          "type": "number",
+          "description": "Model confidence percentage from visual inference."
+        },
+        "status": {
+          "type": "string",
+          "enum": ["Under Treatment", "Crop Improved", "Worsened"],
+          "description": "Current recovery status of the crop."
+        },
+        "imageUrl": {
+          "type": "string",
+          "description": "Optional image data URL or preview link of the specimen."
+        },
+        "createdAt": {
+          "type": "string",
+          "description": "ISO timestamp or server timestamp when the log entry was created."
+        }
+      },
+      "required": [
+        "id",
+        "userId",
+        "crop",
+        "disease",
+        "pathogen",
+        "confidence",
+        "status",
+        "createdAt"
+      ]
+    },
+    "ChatMessage": {
+      "title": "ChatMessage",
+      "description": "A single conversational turn between the farmer and AgriSathi AI.",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the message."
+        },
+        "userId": {
+          "type": "string",
+          "description": "UID of the farmer."
+        },
+        "role": {
+          "type": "string",
+          "enum": ["user", "assistant"],
+          "description": "Role of the message author."
+        },
+        "text": {
+          "type": "string",
+          "description": "Content of the message."
+        },
+        "source": {
+          "type": "string",
+          "description": "Model source, such as gemini-3.8-flash or offline-dataset."
+        },
+        "timestamp": {
+          "type": "string",
+          "description": "Display timestamp of the message."
+        },
+        "createdAt": {
+          "type": "string",
+          "description": "ISO timestamp for sorting."
+        }
+      },
+      "required": ["id", "userId", "role", "text", "createdAt"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "#/entities/UserProfile",
+      "description": "Stores individual farmer profiles and preferences."
+    },
+    "/users/{userId}/cropLogs/{logId}": {
+      "schema": "#/entities/CropLogEntry",
+      "description": "Stores crop diagnosis records saved by the user."
+    },
+    "/users/{userId}/chatMessages/{messageId}": {
+      "schema": "#/entities/ChatMessage",
+      "description": "Stores persistent conversation history for the user."
+    }
+  }
+}

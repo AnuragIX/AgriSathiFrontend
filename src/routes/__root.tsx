@@ -82,14 +82,14 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       {
         name: "description",
         content:
-          "An AI-powered agricultural companion and crop diagnostic platform designed for farmers in Assam, India. Features offline leaf checks with TensorFlow.js, multilingual voice assistant, and local KVK advisory.",
+          "An AI-powered agricultural companion and crop diagnostic platform designed for farmers in Assam, India. Features offline leaf checks with TensorFlow.js, multilingual voice assistant, and intelligent crop health monitoring.",
       },
       { name: "author", content: "AgriSathi" },
       { property: "og:title", content: "AgriSathi — Your Assam Farm Companion" },
       {
         property: "og:description",
         content:
-          "An AI-powered agricultural companion and crop diagnostic platform designed for farmers in Assam, India. Features offline leaf checks with TensorFlow.js, multilingual voice assistant, and local KVK advisory.",
+          "An AI-powered agricultural companion and crop diagnostic platform designed for farmers in Assam, India. Features offline leaf checks with TensorFlow.js, multilingual voice assistant, and intelligent crop health monitoring.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -99,14 +99,14 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
       {
         rel: "stylesheet",
-        href: "https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400..700;1,9..40,400..700&family=Fraunces:ital,opsz,wght@0,9..144,500..800;1,9..40,500..800&family=Manrope:wght@500;600;700;800&family=Noto+Sans+Bengali:wght@400;500;600;700&display=swap",
+        href: "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+Bengali:wght@400;500;600;700&family=Noto+Sans:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap",
       },
       {
         rel: "stylesheet",
         href: appCss,
       },
       { rel: "icon", href: "/favicon.ico", type: "image/x-icon" },
-      { rel: "apple-touch-icon", href: "/assets/agrisathi-crest.png" },
+      { rel: "apple-touch-icon", href: "/assets/agrisathi-minimal-logo.svg" },
     ],
   }),
   shellComponent: RootShell,

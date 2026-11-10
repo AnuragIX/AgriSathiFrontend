@@ -1,6 +1,6 @@
 {
   "name": "AgriSathi — Your Assam Farm Companion",
-  "description": "An AI-powered agricultural companion and crop diagnostic platform designed for farmers in Assam, India. Features offline leaf checks with TensorFlow.js, multilingual voice assistant, and local KVK advisory.",
+  "description": "An AI-powered agricultural companion and crop diagnostic platform designed for farmers in Assam, India. Features offline leaf checks with TensorFlow.js, multilingual voice assistant, and intelligent crop health monitoring.",
   "permissions": [],
   "capabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
 }

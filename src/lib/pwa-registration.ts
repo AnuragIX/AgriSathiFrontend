@@ -9,6 +9,11 @@ function isEditorOrPreview() {
     !import.meta.env.PROD ||
     window.top !== window.self ||
     host === verifiedPreviewHost ||
+    host.endsWith(".run.app") ||
+    host.includes("aistudio") ||
+    host.endsWith(".google.com") ||
+    host === "localhost" ||
+    host === "127.0.0.1" ||
     /^(?:id-preview|preview)(?:-[a-z0-9]+)?--.+\.(?:lovable\.app|gpt-eng\.com|gptengineer\.run)$/.test(
       host,
     ) ||
@@ -24,18 +29,12 @@ function isEditorOrPreview() {
 }
 
 async function removeMatchingRegistrations() {
-  const registrations = await navigator.serviceWorker.getRegistrations();
-  await Promise.all(
-    registrations
-      .filter((registration) => {
-        const scriptPath =
-          registration.active?.scriptURL ??
-          registration.waiting?.scriptURL ??
-          registration.installing?.scriptURL;
-        return scriptPath ? new URL(scriptPath).pathname === workerPath : false;
-      })
-      .map((registration) => registration.unregister()),
-  );
+  try {
+    const registrations = await navigator.serviceWorker.getRegistrations();
+    await Promise.all(registrations.map((registration) => registration.unregister()));
+  } catch {
+    /* ignore */
+  }
 }
 
 export async function registerAgriSathiOffline() {
