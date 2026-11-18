@@ -1,63 +1,77 @@
 # AgriSathi 🌱
 
-**An AI-powered agricultural assistant built to make practical crop guidance more accessible.**
+**An AI-powered agricultural assistant designed to make practical crop guidance more accessible.**
 
-AgriSathi is an independent agricultural-assistance web project focused on approachable crop-care guidance, regional-language access, and useful tools for farmers.
+AgriSathi is an independent agricultural-assistance web project focused on approachable crop-care guidance, regional-language access, and practical tools for farmers.
 
-**Live application:** https://agrisathiai.lovable.app
+## Live application
 
-## What it aims to provide
+**[Open AgriSathi](https://agrisathi-ai-xi.vercel.app/)**
+
+This is the current public deployment. Features and availability may change as the project evolves.
+
+## What AgriSathi aims to provide
 
 - **Agricultural chat assistance** for crop care, pests, soil, fertilizer, and related questions.
-- **Crop image analysis** to help identify possible leaf diseases and provide next-step guidance.
+- **Crop image analysis** to help users investigate possible leaf or crop issues and understand potential next steps.
 - **Voice interaction** for hands-free use.
-- **Regional-language access** with Assamese, Bengali, Bodo, and English support in mind.
-- **Crop monitoring log** to help users track observations and diagnoses.
-- **Expert-assistance workflow** for cases that need human review.
-- **Responsive interface** designed with practical use and accessibility in mind.
+- **Regional-language access**, with Assamese, Bengali, Bodo, and English support in mind.
+- **Crop monitoring tools** to help users record observations and follow crop conditions.
+- **Expert-assistance workflows** for questions that need human review.
+- **Responsive access** across supported screen sizes.
 
-Features and availability may change during development. AI-generated results can be inaccurate; verify important decisions with qualified local agricultural experts, KVK services, and product labels.
+The list above describes the project's intended capabilities; actual availability may vary in the current deployment.
+
+## Important guidance
+
+AgriSathi is an informational technology project, not a replacement for qualified agricultural advice. AI-generated responses and image assessments can be incomplete or incorrect. Verify important decisions—especially pesticide, fertilizer, crop-treatment, and safety decisions—with qualified local agricultural experts, Krishi Vigyan Kendra (KVK) services, and approved product labels.
+
+Do not rely on an AI-generated diagnosis as the sole basis for applying chemicals or taking actions that could affect people, crops, animals, or the environment.
 
 ## Project status
 
-AgriSathi is under active development. Feedback and constructive contributions are welcome under the policies in this repository.
+AgriSathi has a public deployment and remains subject to ongoing development. Report reproducible bugs and constructive suggestions through the repository's issue tracker.
 
 ## Run locally
 
 ### Requirements
+
 - Node.js (LTS recommended)
 - npm
 
-```bash
+### Setup
+
+\`\`\`bash
 git clone https://github.com/AnuragIX/AgriSathiFrontend.git
 cd AgriSathiFrontend
 npm install
 npm run dev
-```
+\`\`\`
 
 Open the local URL printed by the development server.
 
 ## Collaboration, ownership, and conduct
 
-Everyone participating in AgriSathi—including collaborators, contributors, sponsors, partner organisations, mentors, maintainers, volunteers, and service providers—must follow the **[Governance & Participation Policy](GOVERNANCE.md)** and **[Contributor Guidelines](CONTRIBUTING.md)**.
+Everyone participating in AgriSathi—including collaborators, contributors, sponsors, partner organisations, mentors, maintainers, volunteers, and service providers—must follow:
+
+- [Governance & Participation Policy](GOVERNANCE.md)
+- [Contributing Guidelines](CONTRIBUTING.md)
+
+These rules apply regardless of a participant's title, seniority, organisation, technical role, or sponsor status.
 
 In particular:
 
-- Contributions, sponsorship, funding, hosting, mentorship, technical assistance, or organisational affiliation do not automatically grant ownership, administrative authority, veto rights, or control of the project.
-- No participant may use or threaten to use access to repositories, accounts, credentials, deployments, infrastructure, data, funding, or services to pressure anyone into surrendering ownership, control, credit, intellectual property, or unrelated concessions.
-- Threatened or actual lockouts, sabotage, deletion, disruption, retaliation, or unauthorised withholding of project resources for coercive purposes are prohibited.
-- Material changes to ownership, control, licensing, sponsorship benefits, or obligations require clear prior written agreement by the authorised parties. They cannot be imposed retroactively or unilaterally.
+- Contributions, sponsorship, funding, hosting, mentoring, technical assistance, or organisational affiliation do not automatically grant project ownership, administrative control, veto rights, or decision-making authority.
+- No participant may use or threaten to use access to repositories, accounts, credentials, deployments, infrastructure, data, funding, or services to pressure another participant into surrendering ownership, control, credit, intellectual property, or unrelated concessions.
+- Coercive lockouts, sabotage, deletion, disruption, retaliation, and unauthorised withholding of project resources are prohibited.
+- Material changes to ownership, control, licensing, sponsorship benefits, or obligations require clear prior written agreement from the authorised parties. They cannot be imposed retroactively or unilaterally.
 
-These expectations apply equally regardless of role, seniority, organisation, or sponsor status. Review the linked policies for scope, reporting, access security, contribution rights, and enforcement.
+Please read the full policies before contributing or accepting project access. These project policies do not replace applicable law or a properly executed written agreement.
 
-## License
+## Licensing
 
-If this repository does not contain a LICENSE file, no permission for unrestricted reuse, modification, or redistribution should be assumed. Contact the project owner before using project materials beyond rights granted by applicable law.
-
-## Disclaimer
-
-AgriSathi is a technology project under development, not a substitute for professional agricultural advice. AI-generated diagnoses and recommendations may be incomplete or incorrect. Verify important crop-treatment, pesticide, fertilizer, and safety decisions with qualified local experts and follow approved product labels.
+Unless this repository contains a LICENSE file granting specific permissions, do not assume that the project is available for unrestricted reuse, modification, or redistribution. Contact the project owner before using project materials beyond permissions granted by applicable law.
 
 ---
 
-**AgriSathi — built with purpose, collaboration with respect.**
+**AgriSathi — practical agricultural assistance, built with responsibility and respect.**
